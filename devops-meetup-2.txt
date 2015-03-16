@@ -34,7 +34,7 @@ $docker build -t zakeeruddin21/apache2 .
 $docker images 
 
 #Spin up the container using image that we created in last step
-$docker run --name apacheserver -d -p 80 -v $PWD/www/html:/var/www/html zakeeruddin21/apache2 /bin/bash -c "sudo service apache2 start && tail -f /var/log/apache2/error.log" 
+$docker run --name apacheserver -d -p 5432:80 -v $PWD/www/html:/var/www/html zakeeruddin21/apache2 /bin/bash -c "sudo service apache2 start && tail -f /var/log/apache2/error.log" 
 
 #Check the containers 
 $docker ps
