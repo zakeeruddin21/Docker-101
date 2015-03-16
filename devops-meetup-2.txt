@@ -1,0 +1,43 @@
+								@@@@@@@@@@@@@@@@@@@@@@@@
+								DEMO - DevOps Meetup 2
+								@@@@@@@@@@@@@@@@@@@@@@@@
+
+$boot2docker stop
+
+# close the terminal
+
+$boot2docker start
+#set env varibales
+
+$docker images
+$docker ps
+$docker ps -a
+
+#creating an image with "ubuntu:14.04" as base image
+#Using DockerFile
+------------------------------------------------
+FROM ubuntu:14.04
+MAINTAINER Zakeeruddin Mohammed "zakeeruddin@example.com"
+
+RUN apt-get update
+RUN apt-get install -y apache2
+
+ENV APACHE_RUN_USER www-data
+ENV APACHE_RUN_GROUP www-data
+ENV APACHE_LOG_DIR /var/log/apache2
+
+----------------------------------------------------
+#Creating an image
+$docker build -t zakeeruddin21/apache2 .
+
+#Check the image in the local repository
+$docker images 
+
+#Spin up the container using image that we created in last step
+$docker run --name apacheserver -d -p 80 -v $PWD/www/html:/var/www/html zakeeruddin21/apache2 /bin/bash -c "sudo service apache2 start && tail -f /var/log/apache2/error.log" 
+
+#Check the containers 
+$docker ps
+
+#Get into the container which is running as backgroup process
+$docker exec -it apache2 /bin/bash
